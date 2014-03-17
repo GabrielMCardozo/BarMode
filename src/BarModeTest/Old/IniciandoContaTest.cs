@@ -1,7 +1,6 @@
-using System.Xml.Serialization;
 using NUnit.Framework;
 
-namespace BarModeTest
+namespace BarModeTest.Old
 {
     [TestFixture]
     public class IniciandoContaTest

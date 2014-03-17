@@ -1,21 +1,20 @@
 using System;
 using System.Collections.Generic;
-using System.Xml.Schema;
 using System.Linq;
 
-namespace BarMode
+namespace BarMode.Old
 {
     public class Conta
     {
 
         public IList<string> Clientes { get; private set; }
 
-        public IList<Pedido> Pedidos { get; private set; }
+        public IList<PedidoOld> Pedidos { get; private set; }
 
         public Conta()
         {
             Clientes = new List<string>();
-            Pedidos = new List<Pedido>();
+            Pedidos = new List<PedidoOld>();
         }
 
         public void AddCliente(string cliente)
@@ -25,7 +24,7 @@ namespace BarMode
 
         public void AddPedido(string nome, decimal preco)
         {
-            Pedidos.Add(new Pedido { Nome = nome, Preco = preco });
+            Pedidos.Add(new PedidoOld { Nome = nome, Preco = preco });
         }
 
         public ContaFechada Fechar()

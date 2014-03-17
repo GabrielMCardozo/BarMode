@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BarMode;
+﻿using BarMode.Old;
 using NUnit.Framework;
 
-namespace BarModeTest
+namespace BarModeTest.Old
 {
     [TestFixture]
     public class BarTest

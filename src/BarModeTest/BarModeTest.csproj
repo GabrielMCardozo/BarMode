@@ -44,8 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BarTest.cs" />
-    <Compile Include="IniciandoContaTest.cs" />
+    <Compile Include="Old\BarTest.cs" />
+    <Compile Include="Old\IniciandoContaTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
