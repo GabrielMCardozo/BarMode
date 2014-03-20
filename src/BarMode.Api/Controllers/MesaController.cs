@@ -7,7 +7,12 @@ namespace BarMode.Api.Controllers
     {
         public Guid Post(Mesa mesa)
         {
-            return Guid.NewGuid();
+            return mesa.Id;
+        }
+
+        public Mesa Get(Guid mesaId)
+        {
+            return null;
         }
     }
 }
