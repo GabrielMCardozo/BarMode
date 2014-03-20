@@ -45,12 +45,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cliente.cs" />
     <Compile Include="ControllerTest\MesaControllerTest.cs" />
+    <Compile Include="Mesa.cs" />
     <Compile Include="MesaTest.cs" />
     <Compile Include="Old\BarTest.cs" />
     <Compile Include="Old\IniciandoContaTest.cs" />
     <Compile Include="ClienteTest.cs" />
+    <Compile Include="Pedido.cs" />
     <Compile Include="PedidoTest.cs" />
+    <Compile Include="Produto.cs" />
     <Compile Include="ProdutoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 
@@ -29,26 +28,5 @@ namespace BarModeTest
 
             Assert.Throws<ArgumentException>(() => new Mesa("NossaMesa", clientes));
         }
-    }
-
-    public class Mesa
-    {
-        public string Nome { get; private set; }
-        public IList<Cliente> Clientes { get; private set; }
-        public Guid Id { get; private set; }
-
-        public Mesa(string nome, IList<Cliente> clientes)
-        {
-            Id = Guid.NewGuid();
-            Nome = nome;
-
-            if (!clientes.Any())
-                throw new ArgumentException("A mesa deve ter pelo menos um cliente");
-
-
-            Clientes = clientes;
-        }
-
-        
     }
 }
