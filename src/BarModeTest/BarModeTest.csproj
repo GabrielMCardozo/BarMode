@@ -45,7 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ControllerTest\MesaControllerTest.cs" />
     <Compile Include="MesaTest.cs" />
     <Compile Include="Old\BarTest.cs" />
     <Compile Include="Old\IniciandoContaTest.cs" />
