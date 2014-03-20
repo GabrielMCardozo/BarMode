@@ -7,8 +7,8 @@
     <ProjectGuid>{39882186-DBF1-4147-BC9F-ADB0A0CD2D7C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BarModeTest</RootNamespace>
-    <AssemblyName>BarModeTest</AssemblyName>
+    <RootNamespace>BarMode.Test</RootNamespace>
+    <AssemblyName>BarMode.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -46,8 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MesaTest.cs" />
-    <Compile Include="Old\BarTest.cs" />
-    <Compile Include="Old\IniciandoContaTest.cs" />
     <Compile Include="ClienteTest.cs" />
     <Compile Include="PedidoTest.cs" />
     <Compile Include="ProdutoTest.cs" />
