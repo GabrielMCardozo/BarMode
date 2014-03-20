@@ -1,4 +1,4 @@
-﻿namespace BarModeTest
+﻿namespace BarMode
 {
     public class Cliente
     {

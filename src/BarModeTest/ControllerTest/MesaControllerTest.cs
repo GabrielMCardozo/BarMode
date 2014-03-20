@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BarMode;
 using NUnit.Framework;
 
 namespace BarModeTest.ControllerTest

@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using BarMode;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 
