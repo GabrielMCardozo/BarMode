@@ -1,42 +1,39 @@
-﻿using System;
+﻿using BarMode.Api.Raven;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using BarMode.Api.Raven;
-using Newtonsoft.Json;
+using Raven.Client;
 
 namespace BarMode.Api.Controllers
 {
     public class MesaController : ApiController
     {
+        private readonly IDocumentSession _ravenSession;
+
+        public MesaController()
+        {
+            _ravenSession = RavenManager.CurrentSession;
+        }
+
         public IList<Mesa> Get()
         {
-            var session = RavenManager.CurrentSession;
-
-            var mesas = session.Query<Mesa>().ToList();
-
+            var mesas = _ravenSession.Query<Mesa>().ToList();
             return mesas;
         }
 
         public Mesa Get(Guid id)
         {
-            var session = RavenManager.CurrentSession;
-
-            var mesa = session.Load<Mesa>(id);
-
+            var mesa = _ravenSession.Load<Mesa>(id);
             return mesa;
         }
 
         public Guid Post(Mesa mesa)
         {
-            var session = RavenManager.CurrentSession;
-
-            session.Store(mesa);
-            session.SaveChanges();
+            _ravenSession.Store(mesa);
+            _ravenSession.SaveChanges();
 
             return mesa.Id;
         }
-
-       
     }
 }
