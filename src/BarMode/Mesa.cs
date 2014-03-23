@@ -8,13 +8,23 @@ namespace BarMode
     [DataContract]
     public class Mesa
     {
+
+
+        [DataMember(Name = "id")]
+        public Guid Id { get; private set; }
+
         [DataMember(Name = "nome")]
         public string Nome { get; private set; }
+
         [DataMember(Name = "clientes")]
         public IList<Cliente> Clientes { get; private set; }
-        
-        [IgnoreDataMember]
-        public Guid Id { get; private set; }
+
+        private readonly IList<Pedido> _pedidos;
+
+        public IEnumerable<Pedido> Pedidos
+        {
+            get { return _pedidos; }
+        }
 
         public Mesa(string nome, IList<Cliente> clientes)
         {
@@ -26,8 +36,13 @@ namespace BarMode
 
 
             Clientes = clientes;
+
+            _pedidos = new List<Pedido>();
         }
 
-        
+        public void AdicionarPedido(Pedido pedido)
+        {
+            _pedidos.Add(pedido);
+        }
     }
 }

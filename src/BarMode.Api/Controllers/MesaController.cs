@@ -35,5 +35,15 @@ namespace BarMode.Api.Controllers
 
             return mesa.Id;
         }
+
+        [Route("mesa/{idMesa}/pedido")]
+        public Guid PostPedido(Guid idMesa, Pedido pedido)
+        {
+            var mesa = _ravenSession.Load<Mesa>(idMesa);
+
+            mesa.AdicionarPedido(pedido);
+
+            return pedido.Id;
+        }
     }
 }
