@@ -21,6 +21,7 @@ namespace BarMode
 
         private readonly IList<Pedido> _pedidos;
 
+        [DataMember(Name = "pedidos")]
         public IEnumerable<Pedido> Pedidos
         {
             get { return _pedidos; }
