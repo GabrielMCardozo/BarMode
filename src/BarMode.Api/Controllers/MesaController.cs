@@ -32,7 +32,7 @@ namespace BarMode.Api.Controllers
         }
 
         [Route("")]
-        public Guid Post(Mesa mesa)
+        public string Post(Mesa mesa)
         {
             _ravenSession.Store(mesa);
             _ravenSession.SaveChanges();

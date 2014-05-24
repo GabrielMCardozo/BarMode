@@ -11,7 +11,7 @@ namespace BarMode
 
 
         [DataMember(Name = "id")]
-        public Guid Id { get; private set; }
+        public string Id { get; private set; }
 
         [DataMember(Name = "nome")]
         public string Nome { get; private set; }
@@ -29,7 +29,7 @@ namespace BarMode
 
         public Mesa(string nome, IList<Cliente> clientes)
         {
-            Id = Guid.NewGuid();
+            Id = Guid.NewGuid().ToString();
             Nome = nome;
 
             if (!clientes.Any())
