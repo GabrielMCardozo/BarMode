@@ -32,12 +32,12 @@ namespace BarMode.Api.Controllers
         }
 
         [Route("")]
-        public string Post(Mesa mesa)
+        public Mesa Post(Mesa mesa)
         {
             _ravenSession.Store(mesa);
             _ravenSession.SaveChanges();
 
-            return mesa.Id;
+            return mesa;
         }
     }
 }
