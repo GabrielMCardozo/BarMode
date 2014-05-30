@@ -44,8 +44,7 @@ namespace BarMode
         {
             _clientesPagamentos.First(x => x.Cliente.Equals(cliente)).pago = true;
         }
-
-
+        
         public decimal GetTotalPago()
         {
             var totalPorCliente = TotalPorCliente();

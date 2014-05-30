@@ -8,18 +8,19 @@ namespace BarMode
     [DataContract]
     public class Mesa
     {
-
-
         [DataMember(Name = "id")]
-        public string Id { get; private set; }
+        public string Id { get { return Nome + Senha; } }
 
         [DataMember(Name = "nome")]
         public string Nome { get; private set; }
 
-        [DataMember(Name = "clientes")]
-        public IList<Cliente> Clientes { get; private set; }
+        [DataMember(Name = "senha")]
+        public string Senha { get; private set; }
 
-        private readonly IList<Pedido> _pedidos;
+        [DataMember(Name = "clientes")]
+        public IList<Cliente> Clientes { get { return GetClientes(); } }
+
+        private readonly List<Pedido> _pedidos;
 
         [DataMember(Name = "pedidos")]
         public IEnumerable<Pedido> Pedidos
@@ -27,16 +28,16 @@ namespace BarMode
             get { return _pedidos; }
         }
 
-        public Mesa(string nome, IList<Cliente> clientes)
+        public Mesa(string nome, string senha)
         {
-            Id = Guid.NewGuid().ToString();
+            if (string.IsNullOrEmpty(nome))
+                throw new ArgumentException("A mesa deve ter um nome");
+
+            if (string.IsNullOrEmpty(senha))
+                throw new ArgumentException("A mesa deve ter uma senha de acesso");
+
             Nome = nome;
-
-            if (!clientes.Any())
-                throw new ArgumentException("A mesa deve ter pelo menos um cliente");
-
-
-            Clientes = clientes;
+            Senha = senha;
 
             _pedidos = new List<Pedido>();
         }
@@ -44,6 +45,11 @@ namespace BarMode
         public void AdicionarPedido(Pedido pedido)
         {
             _pedidos.Add(pedido);
+        }
+
+        private IList<Cliente> GetClientes()
+        {
+            return _pedidos.SelectMany(x => x.Clientes).Distinct().ToList();
         }
     }
 }

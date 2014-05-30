@@ -1,8 +1,5 @@
-﻿using System.Linq;
-using BarMode;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
+﻿using NUnit.Framework;
+using System.Linq;
 
 namespace BarMode.Test
 {
@@ -11,24 +8,20 @@ namespace BarMode.Test
     public class MesaTest
     {
         [Test]
-        public void NovaMesaTemNomeIdEClientes()
+        public void NovaMesaTemNomeSenha()
         {
-            var clientes = new List<Cliente> {new Cliente("Gabriel")};
-
-            var mesa = new Mesa("NossaMesa", clientes);
+            var mesa = new Mesa("NossaMesa", "Senha");
 
             Assert.AreEqual("NossaMesa",mesa.Nome,"nome");
-            Assert.AreEqual("Gabriel",mesa.Clientes[0].Nome);
-            Assert.IsNotNull(mesa.Id);
+            Assert.AreEqual("Senha",mesa.Senha,"senha");
         }
 
         [Test]
-        public void SePassarListaVaziaDeClientes_LevantaErro()
+        public void IdDaMesaEhFormadoDoNomeMaisSenha()
         {
-            var clientes = new List<Cliente>();
-            
+            var mesa = new Mesa("NossaMesa", "Senha");
 
-            Assert.Throws<ArgumentException>(() => new Mesa("NossaMesa", clientes));
+            Assert.AreEqual("NossaMesaSenha",mesa.Id);
         }
 
         [Test]
@@ -36,11 +29,39 @@ namespace BarMode.Test
         {
             var pedido = new Pedido(new Produto("Batata", 10m), new[] {new Cliente("gabriel")});
 
-            var mesa = new Mesa("test", new[] {new Cliente("gabriel")});
+            var mesa = new Mesa("test", "senha");
 
             mesa.AdicionarPedido(pedido);
 
             Assert.AreEqual(pedido.Id,mesa.Pedidos.ToArray()[0].Id);
+        }
+
+        [Test]
+        public void OsClientesSaoAdicionadosJuntosComOPedido()
+        {
+            var mesa = new Mesa("test", "senha");
+
+            var pedido = new Pedido(new Produto("Batata", 10m), new[] { new Cliente("gabriel") });
+            
+            mesa.AdicionarPedido(pedido);
+
+            Assert.AreEqual("gabriel",mesa.Clientes[0].Nome);
+
+        }
+
+        [Test]
+        public void OsClientesQueJaForamAdicionadosNãoPodemRepetir()
+        {
+            var mesa = new Mesa("test", "senha");
+
+            var pedido = new Pedido(new Produto("Batata", 10m), new[] { new Cliente("gabriel") });
+            var pedido2 = new Pedido(new Produto("Abobora", 15m), new[] { new Cliente("gabriel") });
+
+            mesa.AdicionarPedido(pedido);
+            mesa.AdicionarPedido(pedido2);
+
+            Assert.IsTrue(mesa.Clientes.Count(x=>x.Nome == "gabriel") == 1,"Tem mais de um cliente");
+
         }
     }
 }
