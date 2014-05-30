@@ -7,7 +7,7 @@ using Raven.Client;
 
 namespace BarMode.Api.Controllers
 {
-    [RoutePrefix("api/mesa/{mesaId:guid}/pedido")]
+    [RoutePrefix("api/mesa/{mesaId:string}/pedido")]
     public class PedidoController : ApiController
     {
         private readonly IDocumentSession _ravenSession;
@@ -18,7 +18,7 @@ namespace BarMode.Api.Controllers
         }
 
         [Route("")]
-        public IEnumerable<Pedido> GetPedido(Guid mesaId)
+        public IEnumerable<Pedido> GetPedido(string mesaId)
         {
             var mesa = _ravenSession.Load<Mesa>(mesaId);
 
@@ -26,7 +26,7 @@ namespace BarMode.Api.Controllers
         }
 
         [Route("{pedidoId:guid}")]
-        public Pedido GetPedido(Guid mesaId,Guid pedidoId)
+        public Pedido GetPedido(string mesaId,Guid pedidoId)
         {
             var mesa = _ravenSession.Load<Mesa>(mesaId);
 
@@ -36,7 +36,7 @@ namespace BarMode.Api.Controllers
         }
 
         [Route("")]
-        public Guid PostPedido(Guid mesaId, Pedido pedido)
+        public Guid PostPedido(string mesaId, Pedido pedido)
         {
             var mesa = _ravenSession.Load<Mesa>(mesaId);
 

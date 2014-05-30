@@ -24,8 +24,8 @@ namespace BarMode.Api.Controllers
             return mesas;
         }
 
-        [Route("{id:guid}")]
-        public Mesa Get(Guid id)
+        [Route("{id:string}")]
+        public Mesa Get(string id)
         {
             var mesa = _ravenSession.Load<Mesa>(id);
             return mesa;
