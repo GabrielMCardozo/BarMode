@@ -7,7 +7,7 @@ using Raven.Client;
 
 namespace BarMode.Api.Controllers
 {
-    [RoutePrefix("api/mesa/{mesaId:string}/pedido")]
+    [RoutePrefix("api/mesa/{mesaId}/pedido")]
     public class PedidoController : ApiController
     {
         private readonly IDocumentSession _ravenSession;
