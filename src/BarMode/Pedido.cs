@@ -12,6 +12,9 @@ namespace BarMode
 
         [DataMember(Name = "produto")]
         public Produto Produto { get; private set; }
+        
+        [DataMember(Name = "dataCriacaoUtc")]
+        public DateTime DataCriacaoUtc { get; private set; }
 
         [DataMember(Name = "clientes")]
         public IEnumerable<Cliente> Clientes
@@ -29,7 +32,9 @@ namespace BarMode
                 throw new ArgumentException("O pedido deve ter pelo menos um cliente");
 
             _clientesPagamentos = clientes.Select(x => new ClientePagamento(x)).ToList();
+            
             Id = Guid.NewGuid();
+            DataCriacaoUtc = DateTime.UtcNow;
         }
 
         public decimal TotalPorCliente()
