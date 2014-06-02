@@ -50,7 +50,23 @@ namespace BarMode.Api.Controllers
             _ravenSession.Store(mesa);
             _ravenSession.SaveChanges();
 
-            return Request.CreateResponse(HttpStatusCode.OK, mesa, "application/json");
+            return Request.CreateResponse(HttpStatusCode.Created, mesa, "application/json");
+        }
+
+        [Route("")]
+        public HttpResponseMessage Put(Mesa mesa)
+        {
+            var id = mesa.Id;
+
+            var storedMesa = Get(id);
+
+            if (storedMesa != null)
+                return Request.CreateResponse(HttpStatusCode.OK, mesa, "application/json");
+
+            _ravenSession.Store(mesa);
+            _ravenSession.SaveChanges();
+
+            return Request.CreateResponse(HttpStatusCode.Created, mesa, "application/json");
         }
     }
 }
