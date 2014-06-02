@@ -17,9 +17,6 @@ namespace BarMode
         [DataMember(Name = "senha")]
         public string Senha { get; private set; }
 
-        [DataMember(Name = "dataCriacaoUtc")]
-        public DateTime DataCriacaoUtc { get; private set; }
-
         [DataMember(Name = "clientes")]
         public IList<Cliente> Clientes { get { return GetClientes(); } }
 
@@ -41,7 +38,6 @@ namespace BarMode
 
             Nome = nome;
             Senha = senha;
-            DataCriacaoUtc = DateTime.UtcNow;
 
             _pedidos = new List<Pedido>();
         }
