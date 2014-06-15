@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using BarMode.Api.Raven;
 using Raven.Client;
@@ -36,7 +38,7 @@ namespace BarMode.Api.Controllers
         }
 
         [Route("")]
-        public Guid PostPedido(string mesaId, Pedido pedido)
+        public HttpResponseMessage PostPedido(string mesaId, Pedido pedido)
         {
             var mesa = _ravenSession.Load<Mesa>(mesaId);
 
@@ -45,7 +47,7 @@ namespace BarMode.Api.Controllers
             _ravenSession.Store(mesa);
             _ravenSession.SaveChanges();
 
-            return pedido.Id;
+            return Request.CreateResponse(HttpStatusCode.OK, mesa, "application/json");
         }
     }
 }
