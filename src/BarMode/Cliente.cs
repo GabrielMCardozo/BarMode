@@ -29,6 +29,9 @@ namespace BarMode
         [DataMember(Name = "total")]
         public decimal Total { get; set; }
 
+        [DataMember(Name = "pago")]
+        public bool Pago { get; set; }
+
         public Cliente(string nome)
         {
             Nome = nome;

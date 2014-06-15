@@ -43,7 +43,7 @@ namespace BarModeTest
 
             var pedido = new Pedido(produto, clientes);
 
-            Assert.AreEqual(1.5m, pedido.TotalPorCliente());
+            Assert.AreEqual(1.5m, pedido.Clientes[0].Total);
         }
 
         [Test]

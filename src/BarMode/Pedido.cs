@@ -14,13 +14,8 @@ namespace BarMode
         public Produto Produto { get; private set; }
      
         [DataMember(Name = "clientes")]
-        public IEnumerable<Cliente> Clientes
-        {
-            get { return _clientesPagamentos.Select(x => x.Cliente).ToList(); }
-        }
-
-        private readonly IList<ClientePagamento> _clientesPagamentos;
-
+        public IList<Cliente> Clientes { get; set; }
+        
         public Pedido(Produto produto, IList<Cliente> clientes)
         {
             Produto = produto;
@@ -28,44 +23,34 @@ namespace BarMode
             if (!clientes.Any())
                 throw new ArgumentException("O pedido deve ter pelo menos um cliente");
 
-            _clientesPagamentos = clientes.Select(x => new ClientePagamento(x)).ToList();
-            
+            SetTotalPorCliente(clientes);
+
+            Clientes = clientes;
+                        
             Id = Guid.NewGuid();
         }
 
-        public decimal TotalPorCliente()
+        private void SetTotalPorCliente(IList<Cliente> clientes)
         {
-            var totalPorCliente = Produto.Preco / _clientesPagamentos.Count;
+            var totalPorCliente = Produto.Preco/clientes.Count;
 
-            return totalPorCliente;
-
+            foreach (var cliente in clientes)
+            {
+                cliente.Total = totalPorCliente;
+            }
         }
-
+        
         public void RegistrarPagamento(Cliente cliente)
         {
-            _clientesPagamentos.First(x => x.Cliente.Equals(cliente)).pago = true;
+            Clientes.First(x => x.Equals(cliente)).Pago = true;
         }
         
         public decimal GetTotalPago()
         {
-            var totalPorCliente = TotalPorCliente();
-
-            var qtdPagos = _clientesPagamentos.Count(x => x.pago);
-
-            var totalPago = Produto.Preco - (qtdPagos * totalPorCliente);
+            var totalPago = Clientes.Where(x=> x.Pago).Sum(x=>x.Total);
 
             return totalPago;
         }
 
-        private class ClientePagamento
-        {
-            internal readonly Cliente Cliente;
-            internal bool pago;
-
-            public ClientePagamento(Cliente cliente)
-            {
-                Cliente = cliente;
-            }
-        }
     }
 }

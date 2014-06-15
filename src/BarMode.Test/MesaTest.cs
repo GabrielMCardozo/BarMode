@@ -82,5 +82,23 @@ namespace BarMode.Test
             Assert.AreEqual(5m,cliente2.Total);
         }
 
+        [Test]
+        public void ClientePagouConta()
+        {
+            var mesa = new Mesa("test", "senha");
+
+            var pedido = new Pedido(new Produto("Batata", 10m), new[] { new Cliente("gabriel"), new Cliente("natalia") });
+            var pedido2 = new Pedido(new Produto("Abobora", 15m), new[] { new Cliente("gabriel") });
+
+            mesa.AdicionarPedido(pedido);
+            mesa.AdicionarPedido(pedido2);
+
+            mesa.RegistrarPagamento(new Cliente("gabriel"));
+
+            var cliente = mesa.Clientes.FirstOrDefault(x => x.Nome == "gabriel");
+
+            Assert.IsTrue(cliente.Pago);
+        }
+
     }
 }

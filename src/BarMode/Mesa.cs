@@ -23,7 +23,7 @@ namespace BarMode
         private readonly List<Pedido> _pedidos;
 
         [DataMember(Name = "pedidos")]
-        public IEnumerable<Pedido> Pedidos
+        public IList<Pedido> Pedidos
         {
             get { return _pedidos; }
         }
@@ -49,20 +49,32 @@ namespace BarMode
 
         private IList<Cliente> GetClientes()
         {
-            var clientes = _pedidos.SelectMany(x => x.Clientes).Distinct().ToList();
+            var clientes = _pedidos
+                .SelectMany(x => x.Clientes).Distinct()
+                .Select(y=>new Cliente(y.Nome)).ToList();
 
-            clientes.ForEach(x=>x.Total = Total(x.Nome));
+            foreach (var cliente in clientes)
+                FillCliente(cliente);
 
             return clientes;
         }
 
-        public decimal Total(string nomeCliente)
+        private void FillCliente(Cliente cliente)
         {
-            var pedidosFiltrados = Pedidos.Where(x => x.Clientes.Any(y => y.Nome == nomeCliente));
+            var clientesPedido = _pedidos.SelectMany(x => x.Clientes).Where(y => y.Equals(cliente));
 
-            var totalGasto = pedidosFiltrados.Sum(x => x.TotalPorCliente());
+            cliente.Total = clientesPedido.Sum(x => x.Total);
+            cliente.Pago = clientesPedido.All(x => x.Pago);
+        }
 
-            return totalGasto;
+        public void RegistrarPagamento(Cliente cliente)
+        {
+            foreach (var pedido in Pedidos)
+            {
+                if(pedido.Clientes.Any(x=>x.Equals(cliente)))
+                    pedido.RegistrarPagamento(cliente);
+            }
+
         }
     }
 }
