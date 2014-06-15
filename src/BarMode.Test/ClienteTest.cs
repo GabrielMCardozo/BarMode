@@ -7,7 +7,7 @@ namespace BarModeTest
     public class ClienteTest
     {
         [Test]
-        public void PessoaTemNome()
+        public void ClienteTemNome()
         {
             var cliente = new Cliente("Gabriel");
 

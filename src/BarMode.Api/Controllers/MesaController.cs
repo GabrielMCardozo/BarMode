@@ -1,15 +1,10 @@
-﻿using System.Net;
-using System.Net.Http;
-using System.Net.Http.Formatting;
-using BarMode.Api.Raven;
-using System;
+﻿using BarMode.Api.Raven;
+using Raven.Client;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
-using Newtonsoft.Json;
-using Raven.Abstractions.Exceptions;
-using Raven.Client;
-using Raven.Client.Exceptions;
 
 namespace BarMode.Api.Controllers
 {
@@ -33,10 +28,11 @@ namespace BarMode.Api.Controllers
         [Route("{id}")]
         public Mesa Get(string id)
         {
+
             var mesa = _ravenSession.Load<Mesa>(id);
             return mesa;
         }
-
+        
         [Route("")]
         public HttpResponseMessage Post(Mesa mesa)
         {
@@ -68,5 +64,17 @@ namespace BarMode.Api.Controllers
 
             return Request.CreateResponse(HttpStatusCode.Created, mesa, "application/json");
         }
+
+        [Route("{id}/cliente/{nomeCliente}")]
+        public Cliente GetCliente(string id,string nomeCliente)
+        {
+
+            var mesa = _ravenSession.Load<Mesa>(id);
+
+            var cliente = mesa.Clientes.FirstOrDefault(x => x.Nome == nomeCliente);
+
+            return cliente;
+        }
+        
     }
 }

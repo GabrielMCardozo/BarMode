@@ -49,7 +49,20 @@ namespace BarMode
 
         private IList<Cliente> GetClientes()
         {
-            return _pedidos.SelectMany(x => x.Clientes).Distinct().ToList();
+            var clientes = _pedidos.SelectMany(x => x.Clientes).Distinct().ToList();
+
+            clientes.ForEach(x=>x.Total = Total(x.Nome));
+
+            return clientes;
+        }
+
+        public decimal Total(string nomeCliente)
+        {
+            var pedidosFiltrados = Pedidos.Where(x => x.Clientes.Any(y => y.Nome == nomeCliente));
+
+            var totalGasto = pedidosFiltrados.Sum(x => x.TotalPorCliente());
+
+            return totalGasto;
         }
     }
 }

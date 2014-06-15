@@ -61,7 +61,26 @@ namespace BarMode.Test
             mesa.AdicionarPedido(pedido2);
 
             Assert.IsTrue(mesa.Clientes.Count(x=>x.Nome == "gabriel") == 1,"Tem mais de um cliente");
-
         }
+
+
+        [Test]
+        public void ObtendoValorTotalAPagarPorCliente()
+        {
+            var mesa = new Mesa("test", "senha");
+
+            var pedido = new Pedido(new Produto("Batata", 10m), new[] { new Cliente("gabriel"), new Cliente("natalia") });
+            var pedido2 = new Pedido(new Produto("Abobora", 15m), new[] { new Cliente("gabriel") });
+
+            mesa.AdicionarPedido(pedido);
+            mesa.AdicionarPedido(pedido2);
+
+            var cliente1 = mesa.Clientes.FirstOrDefault(x=>x.Nome=="gabriel");
+            var cliente2 = mesa.Clientes.FirstOrDefault(x=>x.Nome=="natalia");
+                
+            Assert.AreEqual(20m,cliente1.Total);
+            Assert.AreEqual(5m,cliente2.Total);
+        }
+
     }
 }
