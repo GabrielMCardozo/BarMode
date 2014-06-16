@@ -1,5 +1,4 @@
-﻿using System;
-using BarMode;
+﻿using BarMode;
 using NUnit.Framework;
 
 namespace BarModeTest

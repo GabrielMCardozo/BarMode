@@ -19,14 +19,9 @@ namespace BarMode
 
         [DataMember(Name = "clientes")]
         public IList<Cliente> Clientes { get { return GetClientes(); } }
-
-        private readonly List<Pedido> _pedidos;
-
+        
         [DataMember(Name = "pedidos")]
-        public IList<Pedido> Pedidos
-        {
-            get { return _pedidos; }
-        }
+        public IList<Pedido> Pedidos { get; set; }
 
         public Mesa(string nome, string senha)
         {
@@ -39,17 +34,17 @@ namespace BarMode
             Nome = nome;
             Senha = senha;
 
-            _pedidos = new List<Pedido>();
+            Pedidos = new List<Pedido>();
         }
 
         public void AdicionarPedido(Pedido pedido)
         {
-            _pedidos.Add(pedido);
+            Pedidos.Add(pedido);
         }
 
         private IList<Cliente> GetClientes()
         {
-            var clientes = _pedidos
+            var clientes = Pedidos
                 .SelectMany(x => x.Clientes).Distinct()
                 .Select(y=>new Cliente(y.Nome)).ToList();
 
@@ -61,7 +56,7 @@ namespace BarMode
 
         private void FillCliente(Cliente cliente)
         {
-            var clientesPedido = _pedidos.SelectMany(x => x.Clientes).Where(y => y.Equals(cliente));
+            var clientesPedido = Pedidos.SelectMany(x => x.Clientes).Where(y => y.Equals(cliente));
 
             cliente.Total = clientesPedido.Sum(x => x.Total);
             cliente.Pago = clientesPedido.All(x => x.Pago);

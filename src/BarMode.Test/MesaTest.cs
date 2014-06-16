@@ -99,8 +99,6 @@ namespace BarMode.Test
 
             Assert.IsTrue(cliente.Pago);
         }
-
-       
-
+        
     }
 }
