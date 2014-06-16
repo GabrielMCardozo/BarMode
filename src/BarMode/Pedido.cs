@@ -42,7 +42,7 @@ namespace BarMode
         
         public void RegistrarPagamento(Cliente cliente)
         {
-            Clientes.First(x => x.Equals(cliente)).Pago = true;
+            Clientes.First(x => x.Equals(cliente)).Pago = cliente.Pago;
         }
         
         public decimal GetTotalPago()

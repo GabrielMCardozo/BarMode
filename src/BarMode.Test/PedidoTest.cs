@@ -59,7 +59,7 @@ namespace BarModeTest
 
             var pedido = new Pedido(produto, clientes);
 
-            pedido.RegistrarPagamento(clientes[0]);
+            pedido.RegistrarPagamento(new Cliente("Gabriel") { Pago = true });
 
             Assert.AreEqual(1.5m, pedido.GetTotalPago());
 

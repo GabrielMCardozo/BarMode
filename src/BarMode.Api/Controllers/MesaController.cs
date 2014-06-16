@@ -32,7 +32,7 @@ namespace BarMode.Api.Controllers
             var mesa = _ravenSession.Load<Mesa>(id);
             return mesa;
         }
-        
+
         [Route("")]
         public HttpResponseMessage Post(Mesa mesa)
         {
@@ -65,16 +65,25 @@ namespace BarMode.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.Created, mesa, "application/json");
         }
 
-        [Route("{id}/cliente/{nomeCliente}")]
-        public Cliente GetCliente(string id,string nomeCliente)
+        [Route("{id}/cliente/")]
+        public HttpResponseMessage PostCliente(string id, Cliente cliente)
         {
+            if(cliente == null)
+                Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Cliente não pode ser nulo.");
+
+            if (string.IsNullOrWhiteSpace(cliente.Nome))
+                Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Cliente informado não tem nome.");
 
             var mesa = _ravenSession.Load<Mesa>(id);
+            
+            mesa.RegistrarPagamento(cliente);
 
-            var cliente = mesa.Clientes.FirstOrDefault(x => x.Nome == nomeCliente);
+            _ravenSession.Store(mesa);
+            _ravenSession.SaveChanges();
 
-            return cliente;
+            return Request.CreateResponse(HttpStatusCode.OK, mesa);
         }
-        
+
+
     }
 }

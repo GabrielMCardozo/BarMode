@@ -93,12 +93,14 @@ namespace BarMode.Test
             mesa.AdicionarPedido(pedido);
             mesa.AdicionarPedido(pedido2);
 
-            mesa.RegistrarPagamento(new Cliente("gabriel"));
+            mesa.RegistrarPagamento(new Cliente("gabriel"){Pago = true});
 
             var cliente = mesa.Clientes.FirstOrDefault(x => x.Nome == "gabriel");
 
             Assert.IsTrue(cliente.Pago);
         }
+
+       
 
     }
 }
